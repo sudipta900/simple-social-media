@@ -2,8 +2,11 @@ const express = require("express");
 const postModel = require("./models/post.model");
 const uploadFile = require("./services/storage.service.js")
 const multer = require("multer"); //middlewire
+const cors = require("cors");
+
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 const upload = multer({ storage: multer.memoryStorage() });  // using multer, create buffer, originalname
 
@@ -24,7 +27,7 @@ app.post("/create-post", upload.single("image"), async (req, res) => {
     const result = await uploadFile(req.file.buffer, req.file.originalname || "image.jpg"); // uploading to imagekit
     // console.log(result);
 
-    //uploaderd data to mongodb
+    //upload data to mongodb
     const post = await postModel.create({
       image: result.url,
       caption: req.body.caption,
