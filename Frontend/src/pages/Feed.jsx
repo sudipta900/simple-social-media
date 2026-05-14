@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
+const api = import.meta.env.VITE_BACKEND_API_URL;
 
 const Feed = () => {
   const [posts, setPosts] = useState([])
@@ -13,13 +13,13 @@ const Feed = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/posts')
-        const fetchedPosts = Array.isArray(res.data.Posts)? res.data.Posts: []
+        const res = await axios.get(`${api}/posts`)
+        const fetchedPosts = Array.isArray(res.data.Posts) ? res.data.Posts : []
 
         setPosts(fetchedPosts)
       } catch (err) {
         console.error('Failed to load posts:', err)
-        setError('Failed to load posts. Check that the backend is running on port 3000.')
+        setError('Failed to load posts from the backend.')
       }
     }
 
@@ -43,15 +43,15 @@ const Feed = () => {
             <p>{post.caption}</p>
           </div>
         ))
-      ) : (
+      ) : !error ? (
         <h1>No posts available</h1>
-      )
+      ) : null
     }
   
   </section>
   <div className="bottom-bar">
     <button className='add-post' onClick={() => navigate("/create-post")}>
-      <FaPlus size={18} color="black"></FaPlus>
+      +
     </button>
   </div>
   </>
