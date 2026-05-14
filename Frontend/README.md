@@ -1,16 +1,96 @@
-# React + Vite
+# Simple Social Media Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + Vite frontend for a small social media app where users can create posts with an image and caption, then view them in a feed.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- View all posts in a simple feed
+- Upload a new image with a caption
+- Navigate between the feed and create-post page
+- Connect to a backend API with Axios
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- React Router
+- Axios
+- ESLint
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```text
+Frontend/
+|-- public/
+|-- src/
+|   |-- assets/
+|   |-- pages/
+|   |   |-- CreatePost.jsx
+|   |   `-- Feed.jsx
+|   |-- App.jsx
+|   `-- main.jsx
+|-- index.html
+|-- package.json
+`-- README.md
+```
+
+## Getting Started
+
+### 1. Install dependencies
+
+```bash
+npm install
+```
+
+### 2. Configure environment variables
+
+Create a `.env` file in the `Frontend` folder and add:
+
+```env
+VITE_BACKEND_API_URL=http://localhost:5000
+```
+
+If you are using the deployed backend instead of a local one, replace the value with your production API URL.
+
+### 3. Start the development server
+
+```bash
+npm run dev
+```
+
+The app will usually be available at `http://localhost:5173`.
+
+## Available Scripts
+
+- `npm run dev` starts the Vite development server
+- `npm run build` creates a production build
+- `npm run preview` previews the production build locally
+- `npm run lint` runs ESLint
+
+## App Pages
+
+- `/` shows the post feed
+- `/create-post` opens the form to create a new post
+
+## API Usage
+
+The frontend expects the backend to provide:
+
+- `GET /posts` to fetch all posts
+- `POST /create-post` to upload a new post
+
+## Deployment
+
+To create a production build:
+
+```bash
+npm run build
+```
+
+The output is generated in the `dist/` folder.
+
+## Notes
+
+- The backend API base URL is read from `VITE_BACKEND_API_URL`
+- Image upload is handled with `FormData`
+- If the backend is unavailable, the feed and create-post page show error messages
